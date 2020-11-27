@@ -1,30 +1,36 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-//import auth from '@react-native-firebase/auth'
+import { StyleSheet, View, Text, Dimensions } from 'react-native'
 import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-community/google-signin'
+
+import ButtonDefault from './src/components/ButtonDefault'
 
 const App = () => {
 
-  const [ userInfo, setUserInfo ] = useState(null)
-  const [ user, setUser ] = useState(null)
-  const [ isLoginScreenPresented, setIsLoginScreenPresented ] = useState(null)
+  const [ signin, setSignin ] = useState(false)
+  const [ user, setUser ] = useState({})
 
   useEffect(() => {
-    GoogleSignin.configure({
-      webClientId: '864806810263-od33v15709ua29kpc89t4glk4cb3mg0l.apps.googleusercontent.com'
-    })
+    GoogleSignin.configure({})
+
+    isSignedIn()
   }, [])
 
+  const isSignedIn = async() => {
+    var value = await GoogleSignin.isSignedIn()
+
+    setSignin(value)
+
+    return value
+  }
+
   const signIn = async () => {
-    var retorno = await GoogleSignin.signIn()
-    console.log(retorno)
-    /*try {
+    try {
       await GoogleSignin.hasPlayServices()
       const userInfo = await GoogleSignin.signIn()
       
-      console.log(userInfo)
+      console.log(userInfo.user)
      
-      setUserInfo(userInfo)
+      setUser(userInfo)
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
@@ -39,13 +45,7 @@ const App = () => {
         // some other error happened
         console.log('error', error)
       }
-    }*/
-  }
-
-  const isSignedIn = async() => {
-    const isSignedIn = await GoogleSignin.isSignedIn()
-
-    setIsLoginScreenPresented(!isSignedIn)
+    }
   }
 
   const signOut = async() => {
@@ -59,17 +59,43 @@ const App = () => {
     }
   }
 
+  const renderLogged = () => {
+    if(signin){
+      return (
+        <View style={{alignItems: 'center'}}>
+          <Text style={styles.label}>You is logged with Google</Text>
+
+          <ButtonDefault title='Sign out' acao={signOut}/>
+        </View>
+      )
+    }else{
+      return null
+    }
+  }
+
+  const renderLogin = () => {
+    /*if(signin){
+      return null
+    }else{*/
+      return (
+        <GoogleSigninButton
+          style={styles.buttonSignin}
+          size={GoogleSigninButton.Size.Standard}
+          color={GoogleSigninButton.Color.Dark}
+          onPress={signIn}
+          // disabled={this.state.isSigninInProgress}
+           />
+      )
+    //}
+  }
+
   return (
     <View style={styles.body}>
       <Text>Login Social using Firebase</Text>
 
-      <GoogleSigninButton
-        style={{ width: 192, height: 48 }}
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
-        onPress={signIn}
-        // disabled={this.state.isSigninInProgress}
-         />
+      { renderLogin() }
+
+      { renderLogged() }
     </View>
   )
 }
@@ -79,7 +105,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#ADD8E6',
     flex: 1,
     alignItems: 'center'
-  }  
+  },
+  label: {
+    fontWeight: 'bold', 
+    fontSize: 22
+  },
+  buttonSignin: { 
+    width: Dimensions.get('window').width - 10, 
+    height: 48 
+  }
 })
 
 export default App
