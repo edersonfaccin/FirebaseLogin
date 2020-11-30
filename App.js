@@ -19,6 +19,10 @@ const App = () => {
     isSignedInGoogle()
   }, [])
 
+  useEffect(() => {
+    console.log(userGoogle)
+  }, [userGoogle])
+
   const isSignedInGoogle = async() => {
     var value = await GoogleSignin.isSignedIn()
 
@@ -28,13 +32,14 @@ const App = () => {
   }
 
   const signinA = async () => {
+    
     const appleAuthRequestResponse = await appleAuth.performRequest({
       requestedOperation: appleAuth.Operation.LOGIN,
       requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME]
     })
   
     const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user)
-  
+
     if (credentialState === appleAuth.State.AUTHORIZED) {
       // user is authenticated
       console.log(appleAuth)
@@ -45,10 +50,10 @@ const App = () => {
     try {
       await GoogleSignin.hasPlayServices()
       const userInfo = await GoogleSignin.signIn()
-      
+   
       const { email, id, name } = userInfo.user
      
-      setUserGoogle({ ...user, id: id, name: name, email: email })
+      setUserGoogle({ ...userGoogle, id: id, name: name, email: email })
       setSigninGoogle(true)
 
     } catch (error) {
@@ -158,15 +163,20 @@ const App = () => {
   return (
     <View style={styles.body}>
       <Text>Login Social using Firebase</Text>
+      
+      { renderLoginGoogle() }
 
+      { renderLoggedGoogle() }
+
+{/*
       { Platform.OS === 'android' ? renderLoginGoogle() : null }
 
       { Platform.OS === 'android' ? renderLoggedGoogle() : null }
 
-
+ 
       { Platform.OS === 'ios' ? renderLoginApple() : null }
 
-      { Platform.OS === 'ios' ? renderLoggedApple() : null }
+      { Platform.OS === 'ios' ? renderLoggedApple() : null } */}
 
     </View>
   )
