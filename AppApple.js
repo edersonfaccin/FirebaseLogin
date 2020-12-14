@@ -23,14 +23,29 @@ const AppApple = () => {
       requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME]
     })
     
-    console.log('login', appleAuthRequestResponse)
+    console.warn('login', appleAuthRequestResponse)
 
-    const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user)
+    try{
+      const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user)
+      
+      if (credentialState === appleAuth.State.AUTHORIZED) {
+        // user is authenticated
+        console.info('OK', appleAuth)
+      }
+    }catch(error){
+      console.error(error)
 
-    if (credentialState === appleAuth.State.AUTHORIZED) {
-      // user is authenticated
-      console.log('OK', appleAuth)
-    }
+      if (error.code === AppleAuthError.CANCELED) {
+      }
+      if (error.code === AppleAuthError.FAILED) {
+      }
+      if (error.code === AppleAuthError.INVALID_RESPONSE) {
+      }
+      if (error.code === AppleAuthError.NOT_HANDLED) {
+      }
+      if (error.code === AppleAuthError.UNKNOWN) {
+      }
+    }    
   }
 
   const signOutApple = () => {
@@ -40,7 +55,7 @@ const AppApple = () => {
   const renderLoggedApple = () => {
     if(signinApple){
       return (
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center', paddingTop: 20}}>
           <Text style={styles.label}>You is logged with Apple</Text>
           
           {/* <Text style={styles.label}>{ userGoogle?.id }</Text> */}
@@ -88,7 +103,8 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: '#ADD8E6',
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: 20
   },
   label: {
     fontWeight: 'bold', 
