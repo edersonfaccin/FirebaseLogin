@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Text, Dimensions, Platform } from 'react-native'
+import { StyleSheet, View, Text, Dimensions } from 'react-native'
 import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-community/google-signin'
-
-import { AppleButton, appleAuth } from '@invertase/react-native-apple-authentication'
 
 import ButtonDefault from './src/components/ButtonDefault'
 
-const App = () => {
+const AppApple = () => {
 
   const [ signinGoogle, setSigninGoogle ] = useState(false)
   const [ userGoogle, setUserGoogle ] = useState({})
-
-  const [ signinApple, setSigninApple ] = useState(false)
 
   useEffect(() => {
     GoogleSignin.configure({})
@@ -29,21 +25,6 @@ const App = () => {
     setSigninGoogle(value)
 
     return value
-  }
-
-  const signinA = async () => {
-    
-    const appleAuthRequestResponse = await appleAuth.performRequest({
-      requestedOperation: appleAuth.Operation.LOGIN,
-      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME]
-    })
-  
-    const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user)
-
-    if (credentialState === appleAuth.State.AUTHORIZED) {
-      // user is authenticated
-      console.log(appleAuth)
-    }
   }
 
   const signInG = async () => {
@@ -71,10 +52,6 @@ const App = () => {
         console.log('error', error)
       }
     }
-  }
-
-  const signOutApple = () => {
-    appleAuth.Operation.LOGOUT
   }
 
   const signOutGoogle = async() => {
@@ -124,59 +101,13 @@ const App = () => {
     }
   }
 
-  const renderLoggedApple = () => {
-    if(signinApple){
-      return (
-        <View style={{alignItems: 'center'}}>
-          <Text style={styles.label}>You is logged with Apple</Text>
-          {/* 
-          <Text style={styles.label}>{ userGoogle?.id }</Text>
-          <Text style={styles.label}>{ userGoogle?.name }</Text>
-          <Text style={styles.label}>{ userGoogle?.email }</Text> */}
-
-          <ButtonDefault title='Sign out Apple' acao={signOutApple}/>
-        </View>
-      )
-    }else{
-      return null
-    }
-  }
-
-  const renderLoginApple = () => {
-    if(signinApple){
-      return null
-    }else{
-      return (
-        <AppleButton
-          buttonStyle={AppleButton.Style.WHITE}
-          buttonType={AppleButton.Type.SIGN_IN}
-          style={{
-            width: 160, // You must specify a width
-            height: 45, // You must specify a height
-          }}
-          onPress={signinA}
-        />
-      )
-    }
-  }
-
   return (
     <View style={styles.body}>
-      <Text>Login Social using Firebase</Text>
+      <Text>Login Social using Firebase Google</Text>
       
       { renderLoginGoogle() }
 
       { renderLoggedGoogle() }
-
-{/*
-      { Platform.OS === 'android' ? renderLoginGoogle() : null }
-
-      { Platform.OS === 'android' ? renderLoggedGoogle() : null }
-
- 
-      { Platform.OS === 'ios' ? renderLoginApple() : null }
-
-      { Platform.OS === 'ios' ? renderLoggedApple() : null } */}
 
     </View>
   )
@@ -198,4 +129,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default App
+export default AppApple
