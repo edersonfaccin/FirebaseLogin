@@ -19,6 +19,7 @@
 		57CCC36B257526F90058E7F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57CCC36A257526F90058E7F1 /* GoogleService-Info.plist */; };
 		673AA7CF31946EF4FADF23EB /* libPods-FirebaseLogin-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27001BD6DB5DBCC01A21DFA7 /* libPods-FirebaseLogin-tvOSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		826A509D25B759BA0089E3FD /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826A509C25B759BA0089E3FD /* File.swift */; };
 		8B46B6A71F783B78F76D5A2D /* libPods-FirebaseLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DA65FA28F6C0CDA5F5285B /* libPods-FirebaseLogin.a */; };
 		E7A44D28E57FCC38833516BC /* libPods-FirebaseLogin-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 655DD2493DDB9E98930D5C8D /* libPods-FirebaseLogin-tvOS.a */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,8 @@
 		655DD2493DDB9E98930D5C8D /* libPods-FirebaseLogin-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FirebaseLogin-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E16EEF8C17E47634A5EE19 /* Pods-FirebaseLogin-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseLogin-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-FirebaseLogin-tvOSTests/Pods-FirebaseLogin-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = FirebaseLogin/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		826A509B25B759BA0089E3FD /* FirebaseLogin-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FirebaseLogin-Bridging-Header.h"; sourceTree = "<group>"; };
+		826A509C25B759BA0089E3FD /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		8B208028F148B161BE3AF508 /* Pods-FirebaseLogin-FirebaseLoginTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseLogin-FirebaseLoginTests.debug.xcconfig"; path = "Target Support Files/Pods-FirebaseLogin-FirebaseLoginTests/Pods-FirebaseLogin-FirebaseLoginTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9E08266FD8D7873B3062B66E /* Pods-FirebaseLogin-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseLogin-tvOS.release.xcconfig"; path = "Target Support Files/Pods-FirebaseLogin-tvOS/Pods-FirebaseLogin-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		C662E45B21683730AE79A6D9 /* Pods-FirebaseLogin-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseLogin-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-FirebaseLogin-tvOS/Pods-FirebaseLogin-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -178,6 +181,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				826A509C25B759BA0089E3FD /* File.swift */,
 				57CCC36A257526F90058E7F1 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* FirebaseLogin */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -185,6 +189,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				55E4C285CDE676CA8D73F71B /* Pods */,
+				826A509B25B759BA0089E3FD /* FirebaseLogin-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -300,7 +305,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = FDY8X3T79M;
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1230;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -391,11 +396,13 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FirebaseLogin-FirebaseLoginTests/Pods-FirebaseLogin-FirebaseLoginTests-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
@@ -479,11 +486,13 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FirebaseLogin/Pods-FirebaseLogin-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
@@ -590,6 +599,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				826A509D25B759BA0089E3FD /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -631,6 +641,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8B208028F148B161BE3AF508 /* Pods-FirebaseLogin-FirebaseLoginTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -654,6 +665,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EB4937ACDDC170F3F7310C66 /* Pods-FirebaseLogin-FirebaseLoginTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = FirebaseLoginTests/Info.plist;
@@ -689,6 +701,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = FirebaseLogin;
+				SWIFT_OBJC_BRIDGING_HEADER = "FirebaseLogin-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -713,6 +726,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = FirebaseLogin;
+				SWIFT_OBJC_BRIDGING_HEADER = "FirebaseLogin-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
